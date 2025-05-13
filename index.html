@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Tata Play M3U Generator</title>
+  <style>
+    body {
+      background-color: #121212;
+      color: #ffffff;
+      font-family: Arial, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+    }
+    h1 {
+      color: #00e676;
+    }
+    .container {
+      background: #1e1e1e;
+      padding: 30px;
+      border-radius: 16px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.5);
+      width: 90%;
+      max-width: 400px;
+    }
+    input {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      border: none;
+      border-radius: 8px;
+      background: #2c2c2c;
+      color: white;
+      font-size: 16px;
+    }
+    button {
+      width: 100%;
+      padding: 12px;
+      background: #00e676;
+      color: black;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+    button:hover {
+      background: #00c853;
+    }
+    .output {
+      margin-top: 20px;
+      word-break: break-all;
+      background: #2a2a2a;
+      padding: 10px;
+      border-radius: 8px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Tata Play M3U Generator</h1>
+    <input type="text" id="subscriber" placeholder="Subscriber ID" />
+    <input type="text" id="mobile" placeholder="Mobile Number" />
+    <button onclick="generateM3U()">Generate M3U Link</button>
+    <div class="output" id="output" style="display:none;"></div>
+    <button id="copyBtn" style="display:none;" onclick="copyToClipboard()">Copy to Clipboard</button>
+  </div>
+
+  <script>
+    function generateM3U() {
+      const subscriber = document.getElementById('subscriber').value.trim();
+      const mobile = document.getElementById('mobile').value.trim();
+      if (!subscriber || !mobile) {
+        alert("Please enter both Subscriber ID and Mobile Number.");
+        return;
+      }
+      const m3uLink = `http://ottapp.live/tata.php?c=${subscriber}&m=${mobile}`;
+      const output = document.getElementById('output');
+      output.innerHTML = m3uLink;
+      output.style.display = 'block';
+      document.getElementById('copyBtn').style.display = 'block';
+    }
+
+    function copyToClipboard() {
+      const text = document.getElementById('output').innerText;
+      navigator.clipboard.writeText(text).then(() => {
+        alert("Copied to clipboard!");
+      });
+    }
+  </script>
+</body>
+</html>
